@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:json_to_notices/utils.dart';
 
 class Event {
-  const Event({
-    required this.start,
-    required this.end,
-    required this.type,
-    required this.name,
-  });
+  const Event(
+      {required this.start,
+      required this.end,
+      required this.type,
+      required this.name,
+      required this.day});
   final String start;
   final String end;
   final EventType type;
   final String name;
+  final DAYOFTHEWEEK day;
 }
 
 enum EventType {
