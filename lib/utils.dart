@@ -1,6 +1,9 @@
 import 'package:excel/excel.dart';
 import 'package:collection/collection.dart';
+import 'package:json_to_notices/mocks.dart';
 import 'package:json_to_notices/models.dart/day_props.dart';
+
+import 'models.dart/event.dart';
 
 const basis = 'Basis';
 
@@ -25,6 +28,10 @@ void downloadExcel() {
       setStyleForMiddlePart(basisSheet, day);
     },
   );
+
+  for (var element in events) {
+    insertEvent(basisSheet, element);
+  }
 
   excel.save(fileName: 'Aushang.xlsx');
 }
@@ -214,4 +221,27 @@ List<int> startValues() {
     start += dayOfTheWeekMapping[day]!.numberOfRows + 1;
   });
   return startValues;
+}
+
+CellStyle cellStyleBooking = cellStyleMiddle.copyWith(
+  topBorderVal: Border(borderStyle: BorderStyle.Thin),
+  bottomBorderVal: Border(borderStyle: BorderStyle.Thin),
+);
+
+insertEvent(Sheet sheet, Event event) {
+  int startRow = 0;
+  int endRow = 0;
+  sheet.merge(
+    CellIndex.indexByColumnRow(
+        columnIndex: event.courts.start, rowIndex: startRow),
+    CellIndex.indexByColumnRow(columnIndex: event.courts.end, rowIndex: endRow),
+    customValue: TextCellValue(event.name),
+  );
+
+  sheet.setMergedCellStyle(
+      CellIndex.indexByColumnRow(
+          columnIndex: event.courts.start, rowIndex: startRow),
+      cellStyleBooking.copyWith(
+          backgroundColorHexVal:
+              ExcelColor.fromInt(eventColorMapping[event.type]!.value)));
 }
