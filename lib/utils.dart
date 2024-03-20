@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:excel/excel.dart';
 import 'package:collection/collection.dart';
 import 'package:json_to_notices/mocks.dart';
@@ -219,18 +221,21 @@ CellStyle cellStyleBooking = cellStyleMiddle.copyWith(
 );
 
 insertEvent(Sheet sheet, Event event) {
-  int startRow = 0;
-  int endRow = 0;
+  Point<int> rowIndex = getRowRangeFromEvent(event);
+  int rowIndexStart = rowIndex.x;
+  int rowIndexEnd = rowIndex.y;
+
   sheet.merge(
     CellIndex.indexByColumnRow(
-        columnIndex: event.courts.start, rowIndex: startRow),
-    CellIndex.indexByColumnRow(columnIndex: event.courts.end, rowIndex: endRow),
+        columnIndex: event.courts.start, rowIndex: rowIndexStart),
+    CellIndex.indexByColumnRow(
+        columnIndex: event.courts.end, rowIndex: rowIndexEnd),
     customValue: TextCellValue(event.name),
   );
 
   sheet.setMergedCellStyle(
       CellIndex.indexByColumnRow(
-          columnIndex: event.courts.start, rowIndex: startRow),
+          columnIndex: event.courts.start, rowIndex: rowIndexStart),
       cellStyleBooking.copyWith(
           backgroundColorHexVal:
               ExcelColor.fromInt(eventColorMapping[event.type]!.value)));
@@ -250,4 +255,29 @@ String getDateRangeFormating(DAYOFTHEWEEK day, rowIndex) {
         '$startingHour$fullHourMinutes-$startingHour$halfHourMinutes';
   }
   return formatedTime;
+}
+
+Point<int> getRowRangeFromEvent(Event event) {
+  int startHour = int.parse(event.start.substring(0, 2));
+  int startHalfHour = int.parse(event.start.substring(3, 5));
+
+  int endHour = int.parse(event.end.substring(0, 2));
+  int endHalfHour = int.parse(event.start.substring(3, 5));
+
+  DayProps dayProps = dayOfTheWeekMapping[event.day]!;
+
+  int rowIndexStart, rowIndexEnd;
+  rowIndexStart = startList[event.day.index] +
+      (startHour - dayProps.startingHour) +
+      (startHalfHour ~/ 30) -
+      1;
+  rowIndexEnd = startList[event.day.index] +
+      (endHour - dayProps.startingHour) +
+      (endHalfHour ~/ 30) -
+      1;
+  Point<int> rowRange = Point(
+    rowIndexStart,
+    rowIndexEnd,
+  );
+  return rowRange;
 }
