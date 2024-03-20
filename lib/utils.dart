@@ -170,7 +170,7 @@ void setStyleForMiddlePart(Sheet sheet, int start, DAYOFTHEWEEK day) {
               rowIndex: start + rowIndex - 1,
             ),
           )
-          .cellStyle = cellStyleMidle;
+          .cellStyle = cellStyleMiddle;
     }
     sheet
         .cell(
@@ -179,7 +179,7 @@ void setStyleForMiddlePart(Sheet sheet, int start, DAYOFTHEWEEK day) {
             rowIndex: start - 1,
           ),
         )
-        .cellStyle = cellStyleMidle.copyWith(
+        .cellStyle = cellStyleMiddle.copyWith(
       topBorderVal: Border(borderStyle: BorderStyle.Thin),
     );
     sheet
@@ -189,13 +189,13 @@ void setStyleForMiddlePart(Sheet sheet, int start, DAYOFTHEWEEK day) {
             rowIndex: start + dayOfTheWeekMapping[day]!.numberOfRows - 2,
           ),
         )
-        .cellStyle = cellStyleMidle.copyWith(
+        .cellStyle = cellStyleMiddle.copyWith(
       bottomBorderVal: Border(borderStyle: BorderStyle.Thin),
     );
   }
 }
 
-CellStyle cellStyleMidle = CellStyle(
+CellStyle cellStyleMiddle = CellStyle(
   leftBorder: Border(borderStyle: BorderStyle.Thin),
   rightBorder: Border(borderStyle: BorderStyle.Thin),
   fontFamily: getFontFamily(FontFamily.Arial),
