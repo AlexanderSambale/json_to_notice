@@ -98,38 +98,38 @@ enum DAYOFTHEWEEK {
   sonntag
 }
 
-Map<DAYOFTHEWEEK, DayProps> dayOfTheWeekMapping = {
-  DAYOFTHEWEEK.montag: const DayProps(
+const Map<DAYOFTHEWEEK, DayProps> dayOfTheWeekMapping = {
+  DAYOFTHEWEEK.montag: DayProps(
     startingHour: 15,
     endingHour: 21,
     name: 'MO',
   ),
-  DAYOFTHEWEEK.dienstag: const DayProps(
+  DAYOFTHEWEEK.dienstag: DayProps(
     startingHour: 15,
     endingHour: 21,
     name: 'DI',
   ),
-  DAYOFTHEWEEK.mittwoch: const DayProps(
+  DAYOFTHEWEEK.mittwoch: DayProps(
     startingHour: 15,
     endingHour: 21,
     name: 'MI',
   ),
-  DAYOFTHEWEEK.donnerstag: const DayProps(
+  DAYOFTHEWEEK.donnerstag: DayProps(
     startingHour: 15,
     endingHour: 21,
     name: 'DO',
   ),
-  DAYOFTHEWEEK.freitag: const DayProps(
+  DAYOFTHEWEEK.freitag: DayProps(
     startingHour: 15,
     endingHour: 21,
     name: 'FR',
   ),
-  DAYOFTHEWEEK.samstag: const DayProps(
+  DAYOFTHEWEEK.samstag: DayProps(
     startingHour: 10,
     endingHour: 19,
     name: 'SA',
   ),
-  DAYOFTHEWEEK.sonntag: const DayProps(
+  DAYOFTHEWEEK.sonntag: DayProps(
     startingHour: 10,
     endingHour: 21,
     name: 'SO',
