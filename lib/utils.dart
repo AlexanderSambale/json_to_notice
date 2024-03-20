@@ -23,6 +23,7 @@ void downloadExcel() {
 
       merge(basisSheet, start, day, 'A');
       merge(basisSheet, start, day, 'R');
+      setStyleForMiddlePart(basisSheet, start, day);
       start += dayOfTheWeekMapping[day]!.numberOfRows + 1;
     },
   );
@@ -157,4 +158,48 @@ void merge(Sheet sheet, int start, DAYOFTHEWEEK day, String colName) {
       CellIndex.indexByString('$colName$start'), cellStyleWeek);
 }
 
-void setFontForMiddlePart(Sheet sheet) {}
+void setStyleForMiddlePart(Sheet sheet, int start, DAYOFTHEWEEK day) {
+  for (int colIndex = 1; colIndex < 17; colIndex++) {
+    for (int rowIndex = 0;
+        rowIndex < dayOfTheWeekMapping[day]!.numberOfRows;
+        rowIndex++) {
+      sheet
+          .cell(
+            CellIndex.indexByColumnRow(
+              columnIndex: colIndex,
+              rowIndex: start + rowIndex - 1,
+            ),
+          )
+          .cellStyle = cellStyleMidle;
+    }
+    sheet
+        .cell(
+          CellIndex.indexByColumnRow(
+            columnIndex: colIndex,
+            rowIndex: start - 1,
+          ),
+        )
+        .cellStyle = cellStyleMidle.copyWith(
+      topBorderVal: Border(borderStyle: BorderStyle.Thin),
+    );
+    sheet
+        .cell(
+          CellIndex.indexByColumnRow(
+            columnIndex: colIndex,
+            rowIndex: start + dayOfTheWeekMapping[day]!.numberOfRows - 2,
+          ),
+        )
+        .cellStyle = cellStyleMidle.copyWith(
+      bottomBorderVal: Border(borderStyle: BorderStyle.Thin),
+    );
+  }
+}
+
+CellStyle cellStyleMidle = CellStyle(
+  leftBorder: Border(borderStyle: BorderStyle.Thin),
+  rightBorder: Border(borderStyle: BorderStyle.Thin),
+  fontFamily: getFontFamily(FontFamily.Arial),
+  fontSize: 10,
+  verticalAlign: VerticalAlign.Center,
+  horizontalAlign: HorizontalAlign.Center,
+);
