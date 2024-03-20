@@ -67,21 +67,11 @@ List<List<CellValue?>> createWeekDay(DAYOFTHEWEEK day) {
   List<List<CellValue?>> cells = [];
   List<CellValue?> cellValues = [];
 
-  int startingHour = dayOfTheWeekMapping[day]!.startingHour;
   int numberOfRows = dayOfTheWeekMapping[day]!.numberOfRows;
-  String fullHourMinutes = ':00';
-  String halfHourMinutes = ':30';
-  String formatedTime = '';
   for (int rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
     cellValues = [];
-    if (rowIndex % 2 == 1) {
-      formatedTime =
-          '$startingHour$halfHourMinutes-${startingHour + 1}$fullHourMinutes';
-      startingHour++;
-    } else {
-      formatedTime =
-          '$startingHour$fullHourMinutes-$startingHour$halfHourMinutes';
-    }
+
+    String formatedTime = getDateRangeFormating(day, rowIndex);
 
     cellValues.add(const TextCellValue(''));
     cellValues.add(TextCellValue(formatedTime));
@@ -244,4 +234,20 @@ insertEvent(Sheet sheet, Event event) {
       cellStyleBooking.copyWith(
           backgroundColorHexVal:
               ExcelColor.fromInt(eventColorMapping[event.type]!.value)));
+}
+
+String getDateRangeFormating(DAYOFTHEWEEK day, rowIndex) {
+  int startingHour = dayOfTheWeekMapping[day]!.startingHour;
+  String fullHourMinutes = ':00';
+  String halfHourMinutes = ':30';
+  String formatedTime = '';
+  if (rowIndex % 2 == 1) {
+    formatedTime =
+        '$startingHour$halfHourMinutes-${startingHour + 1}$fullHourMinutes';
+    startingHour++;
+  } else {
+    formatedTime =
+        '$startingHour$fullHourMinutes-$startingHour$halfHourMinutes';
+  }
+  return formatedTime;
 }
