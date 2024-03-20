@@ -9,6 +9,11 @@ void downloadExcel() {
   excel.rename('Sheet1', 'Basis');
 
   Sheet basisSheet = excel.sheets[basis]!;
+
+  for (int columnIndex = 0; columnIndex < 18; columnIndex++) {
+    basisSheet.setColumnWidth(columnIndex, 12.0);
+  }
+
   basisSheet.appendRow(createHeaderRow());
 
   int start = 3;
