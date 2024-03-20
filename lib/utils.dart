@@ -241,8 +241,8 @@ insertEvent(Sheet sheet, Event event) {
               ExcelColor.fromInt(eventColorMapping[event.type]!.value)));
 }
 
-String getDateRangeFormating(DAYOFTHEWEEK day, rowIndex) {
-  int startingHour = dayOfTheWeekMapping[day]!.startingHour;
+String getDateRangeFormating(DAYOFTHEWEEK day, int rowIndex) {
+  int startingHour = dayOfTheWeekMapping[day]!.startingHour + rowIndex ~/ 2;
   String fullHourMinutes = ':00';
   String halfHourMinutes = ':30';
   String formatedTime = '';
