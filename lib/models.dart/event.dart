@@ -7,12 +7,14 @@ class Event {
       required this.end,
       required this.type,
       required this.name,
-      required this.day});
+      required this.day,
+      required this.courts});
   final String start;
   final String end;
   final EventType type;
   final String name;
   final DAYOFTHEWEEK day;
+  final ({int start, int end}) courts;
 }
 
 enum EventType {
