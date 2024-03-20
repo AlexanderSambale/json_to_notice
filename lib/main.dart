@@ -93,9 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
             ElevatedButton(
               onPressed: downloadExcel,
               child: Text('Download Excel'),
