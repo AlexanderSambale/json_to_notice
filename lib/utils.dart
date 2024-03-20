@@ -28,6 +28,18 @@ void downloadExcel() {
   excel.save(fileName: 'Aushang.xlsx');
 }
 
+CellStyle cellStyleWeek = CellStyle(
+  leftBorder: Border(borderStyle: BorderStyle.Thin),
+  rightBorder: Border(borderStyle: BorderStyle.Thin),
+  topBorder: Border(borderStyle: BorderStyle.Thin),
+  bottomBorder: Border(borderStyle: BorderStyle.Thin),
+  fontFamily: getFontFamily(FontFamily.Arial),
+  fontSize: 18,
+  bold: true,
+  verticalAlign: VerticalAlign.Center,
+  horizontalAlign: HorizontalAlign.Center,
+);
+
 List<CellValue?> createHeaderRow() {
   List<CellValue?> cellValues = [];
   cellValues.add(const TextCellValue(''));
@@ -138,4 +150,7 @@ void merge(Sheet sheet, int start, DAYOFTHEWEEK day, String colName) {
     CellIndex.indexByString('$colName$end'),
     customValue: TextCellValue(dayOfTheWeekMapping[day]!.name),
   );
+
+  sheet.setMergedCellStyle(
+      CellIndex.indexByString('$colName$start'), cellStyleWeek);
 }
