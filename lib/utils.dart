@@ -262,19 +262,19 @@ Point<int> getRowRangeFromEvent(Event event) {
   int startHalfHour = int.parse(event.start.substring(3, 5));
 
   int endHour = int.parse(event.end.substring(0, 2));
-  int endHalfHour = int.parse(event.start.substring(3, 5));
+  int endHalfHour = int.parse(event.end.substring(3, 5));
 
   DayProps dayProps = dayOfTheWeekMapping[event.day]!;
 
   int rowIndexStart, rowIndexEnd;
   rowIndexStart = startList[event.day.index] +
-      (startHour - dayProps.startingHour) +
+      (startHour - dayProps.startingHour) * 2 +
       (startHalfHour ~/ 30) -
       1;
   rowIndexEnd = startList[event.day.index] +
-      (endHour - dayProps.startingHour) +
+      (endHour - dayProps.startingHour) * 2 +
       (endHalfHour ~/ 30) -
-      1;
+      2;
   Point<int> rowRange = Point(
     rowIndexStart,
     rowIndexEnd,
