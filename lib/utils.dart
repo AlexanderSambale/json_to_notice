@@ -1,6 +1,6 @@
 import 'package:excel/excel.dart';
 import 'package:collection/collection.dart';
-import 'package:json_to_notices/model.dart';
+import 'package:json_to_notices/models.dart/day_props.dart';
 
 const basis = 'Basis';
 
@@ -13,7 +13,6 @@ void downloadExcel() {
 
   basisSheet.appendRow(createHeaderRow());
 
-  int start = 3;
   DAYOFTHEWEEK.values.forEachIndexed(
     (index, day) {
       basisSheet.appendRow(createBlankRow());
@@ -21,10 +20,9 @@ void downloadExcel() {
         basisSheet.appendRow(element);
       });
 
-      merge(basisSheet, start, day, 'A');
-      merge(basisSheet, start, day, 'R');
-      setStyleForMiddlePart(basisSheet, start, day);
-      start += dayOfTheWeekMapping[day]!.numberOfRows + 1;
+      merge(basisSheet, day, 'A');
+      merge(basisSheet, day, 'R');
+      setStyleForMiddlePart(basisSheet, day);
     },
   );
 
@@ -146,7 +144,8 @@ List<CellValue?> createBlankRow() {
   return cellValues;
 }
 
-void merge(Sheet sheet, int start, DAYOFTHEWEEK day, String colName) {
+void merge(Sheet sheet, DAYOFTHEWEEK day, String colName) {
+  int start = startList[day.index];
   int end = start + dayOfTheWeekMapping[day]!.numberOfRows - 1;
   sheet.merge(
     CellIndex.indexByString('$colName$start'),
@@ -158,7 +157,8 @@ void merge(Sheet sheet, int start, DAYOFTHEWEEK day, String colName) {
       CellIndex.indexByString('$colName$start'), cellStyleWeek);
 }
 
-void setStyleForMiddlePart(Sheet sheet, int start, DAYOFTHEWEEK day) {
+void setStyleForMiddlePart(Sheet sheet, DAYOFTHEWEEK day) {
+  int start = startList[day.index];
   for (int colIndex = 1; colIndex < 17; colIndex++) {
     for (int rowIndex = 0;
         rowIndex < dayOfTheWeekMapping[day]!.numberOfRows;
@@ -203,3 +203,15 @@ CellStyle cellStyleMiddle = CellStyle(
   verticalAlign: VerticalAlign.Center,
   horizontalAlign: HorizontalAlign.Center,
 );
+
+List<int> startList = startValues();
+
+List<int> startValues() {
+  int start = 3;
+  List<int> startValues = [];
+  DAYOFTHEWEEK.values.forEachIndexed((index, day) {
+    startValues.add(start);
+    start += dayOfTheWeekMapping[day]!.numberOfRows + 1;
+  });
+  return startValues;
+}
