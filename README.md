@@ -14,16 +14,16 @@ flutter run -d chrome
 
 Click on download
 
-![Click on download](/assets/webp/WebClick.webp)
+![Click on download](/images/WebClick.webp)
 
 and have a look on the downloaded file.
 
-![Click on downloaded file](/assets/webp/Webxls.webp)
+![Click on downloaded file](/images/Webxls.webp)
 
 You can see the weekdays Monday, Tuesday, Wednesday in german language with 2 two events spanning multiple columns.
 
-![monday to wednesday view](/assets/webp/MODIMI.webp)
+![monday to wednesday view](/images/MODIMI.webp)
 
 The same you can see for Friday, Saturday and Sunday for different events and different colors.
 
-![friday to sunday view](/assets/webp/FRSASO.webp)
+![friday to sunday view](/images/FRSASO.webp)
